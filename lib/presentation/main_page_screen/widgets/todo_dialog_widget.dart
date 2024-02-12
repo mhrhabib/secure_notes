@@ -8,6 +8,7 @@ import 'package:secure_notes/presentation/main_page_screen/widgets/view_todo.dar
 import '../../../widgets/app_elavated_button.dart';
 import '../../../widgets/laoder.dart';
 
+// ignore: must_be_immutable
 class TodoDialogWidget extends StatelessWidget {
   TodoDialogWidget({super.key, required this.todo});
 
