@@ -1,5 +1,5 @@
 class Urls {
-  static const baseUrl = "https://ashadblog.com/app.todo/api";
+  static const baseUrl = "https://todo.drutosoft.net/api";
   static const login = '$baseUrl/login';
   static const signUp = '$baseUrl/register';
   static const logOut = '$baseUrl/logout';

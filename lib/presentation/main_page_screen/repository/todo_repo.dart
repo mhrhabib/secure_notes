@@ -1,12 +1,8 @@
 import '../../../core/app_export.dart';
 import '../../../core/network/base_client.dart';
 import '../../../core/utils/urls.dart';
-import '../models/add_todo_model.dart';
-import '../models/delete_todo.dart';
 import '../models/todo_model.dart';
 import 'package:dio/dio.dart' as dio;
-
-import '../models/update_todo_model.dart';
 
 class TodoRepo {
   Future<List<Todo>> getTodoList() async {
@@ -31,11 +27,13 @@ class TodoRepo {
     }
   }
 
-  static Future<AddTodo> addTdo(String title, String desc) async {
+  static Future addTdo(String title, String desc) async {
     var data = {
       'title': title,
       'description': desc,
     };
+
+    print(data);
 
     try {
       dio.Response response = await BaseClient.post(
@@ -43,11 +41,9 @@ class TodoRepo {
         payload: data,
       );
       if (response.statusCode == 200) {
-        AddTodo addTodo = AddTodo.fromJson(response.data);
         Get.back();
         Get.snackbar('Success', 'Todo added');
-
-        return addTodo;
+        return response.data;
       } else {
         throw "${response.statusCode}";
       }
@@ -57,15 +53,14 @@ class TodoRepo {
     }
   }
 
-  static Future<DeleteTodo> deletTodo(int id) async {
+  static Future deletTodo(int id) async {
     try {
       dio.Response response = await BaseClient.get(url: Urls.deleteTodo + "$id");
 
       if (response.statusCode == 200) {
-        DeleteTodo deleteTodo = DeleteTodo.fromJson(response.data);
         Get.snackbar("Success", "Delete todo successfull");
 
-        return deleteTodo;
+        return response.data;
       }
       throw "${response.statusCode}";
     } catch (e) {
@@ -74,7 +69,7 @@ class TodoRepo {
     }
   }
 
-  static Future<UpdateTodo> updateTodo(int id, String title, String desc) async {
+  static Future updateTodo(int id, String title, String desc) async {
     var data = {
       'id': id,
       'title': title,
@@ -87,11 +82,10 @@ class TodoRepo {
         payload: data,
       );
       if (response.statusCode == 200) {
-        UpdateTodo updateTodo = UpdateTodo.fromJson(response.data);
         Get.back();
         Get.snackbar('Success', 'Todo added');
 
-        return updateTodo;
+        return response.data;
       } else {
         throw "${response.statusCode}";
       }

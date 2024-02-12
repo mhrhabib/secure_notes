@@ -1,3 +1,4 @@
+import 'package:secure_notes/presentation/login_screen/signup_screen.dart';
 import 'package:secure_notes/presentation/splash_screen/splash_screen.dart';
 import 'package:secure_notes/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:secure_notes/presentation/getstarted_screen/getstarted_screen.dart';
@@ -14,6 +15,7 @@ class AppRoutes {
   static const String getstartedScreen = '/getstarted_screen';
 
   static const String loginScreen = '/login_screen';
+  static const String signUpScreen = '/signUp_screen';
 
   static const String mainPageScreen = '/main_page_screen';
 
@@ -47,6 +49,13 @@ class AppRoutes {
     GetPage(
       name: loginScreen,
       page: () => LoginScreen(),
+      bindings: [
+        LoginBinding(),
+      ],
+    ),
+    GetPage(
+      name: signUpScreen,
+      page: () => SignupScreen(),
       bindings: [
         LoginBinding(),
       ],

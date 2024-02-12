@@ -3,41 +3,158 @@ import 'package:secure_notes/core/app_export.dart';
 import 'package:secure_notes/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
+import 'signup_screen.dart';
+
 class LoginScreen extends GetWidget<LoginController> {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    print('>>>>>>>user ${controller.user}');
     return SafeArea(
       child: Scaffold(
         backgroundColor: appTheme.cyan50,
         body: Container(
           width: double.maxFinite,
-          padding: EdgeInsets.only(left: 14.h, top: 97.v, right: 14.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 2.h),
-                child: Row(
+          padding: EdgeInsets.only(left: 14.h, top: 12.v, right: 14.h, bottom: 40.v),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 2.h),
+                  child: Row(
+                    children: [
+                      CustomImageView(imagePath: ImageConstant.imgArrowDown, height: 24.adaptSize, width: 24.adaptSize, margin: EdgeInsets.only(bottom: 3.v)),
+                      Padding(padding: EdgeInsets.only(left: 110.h), child: Text("lbl_login".tr, style: CustomTextStyles.titleLargePrimary))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.v),
+                _buildContinueWithGmail(),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "You have to signed up through email add password use this app as i have this api of todo. and its not connected with gmail sign in, but i have done the part where you can sign in with gmail and get the profile from firebase.",
+                    style: TextStyle(fontSize: 16.fSize),
+                  ),
+                ),
+                SizedBox(height: 12.v),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Email Address",
+                        style: labelTextStyle,
+                      ),
+                      SizedBox(height: 12.v),
+                      TextFormField(
+                        controller: controller.emailController.value,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.person_2_outlined),
+                          prefixIconColor: Colors.black26,
+                          hintText: "Example@gmail.com",
+                          hintStyle: TextStyle(
+                            color: Colors.black26,
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey.shade100,
+                          border: OutlineInputBorder(),
+                          //contentPadding: EdgeInsets.only(left: 8)
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Field cann't be empty";
+                          }
+                          if (value.isNotEmpty && !value.contains("@")) {
+                            return "Email is not valid";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 12.v),
+                      const Text(
+                        "Password",
+                        style: labelTextStyle,
+                      ),
+                      SizedBox(height: 12.v),
+                      Obx(
+                        () => TextFormField(
+                          controller: controller.passwordController.value,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(color: Colors.black),
+                          obscureText: controller.isVisible.value == true ? true : false,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.lock),
+                            prefixIconColor: Colors.black26,
+                            suffixIcon: InkWell(
+                              onTap: () => controller.visibilityToggle(),
+                              child: controller.isVisible.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                            ),
+                            suffixIconColor: Colors.black26,
+                            hintText: "Password",
+                            hintStyle: const TextStyle(
+                              color: Colors.black26,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey.shade100,
+                            border: const OutlineInputBorder(),
+                            //contentPadding: EdgeInsets.only(left: 8)
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Password cann't be empty";
+                            }
+                            if (value.isNotEmpty && value.length < 4) {
+                              return "Password must be at least 4 character";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.v),
+                CustomElevatedButton(
+                    height: 45.v,
+                    text: "Log in".tr,
+                    margin: EdgeInsets.only(left: 2.h),
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        await controller.loginWithEmail();
+                      }
+                    }),
+                SizedBox(height: 20.v),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomImageView(imagePath: ImageConstant.imgArrowDown, height: 24.adaptSize, width: 24.adaptSize, margin: EdgeInsets.only(bottom: 3.v)),
-                    Padding(padding: EdgeInsets.only(left: 110.h), child: Text("lbl_login".tr, style: CustomTextStyles.titleLargePrimary))
+                    const Text(
+                      "Don't have an account?",
+                      style: labelTextStyle,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.signUpScreen);
+                      },
+                      child: Text(
+                        "SignUp",
+                        style: TextStyle(
+                          fontSize: 20.fSize,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(height: 58.v),
-              _buildContinueWithGmail(),
-              SizedBox(height: 43.v),
-              _buildFrameNine(),
-              SizedBox(height: 44.v),
-              _buildLoginWithFacebook(),
-              SizedBox(height: 12.v),
-              _buildLoginWithTwitter(),
-              SizedBox(height: 12.v),
-              _buildLoginWithInstagram(),
-              SizedBox(height: 5.v)
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -57,19 +174,25 @@ class LoginScreen extends GetWidget<LoginController> {
               })
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                CircleAvatar(
+                  radius: 90.adaptSize,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(70.adaptSize),
+                    child: CustomImageView(
+                      height: 140.adaptSize,
+                      imagePath: controller.user.value!.photoURL,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12.v),
                 Text(
                   'Welcome, ${controller.user.value!.displayName}',
                   style: TextStyle(fontSize: 18.fSize),
                 ),
                 SizedBox(height: 12.h),
-                CustomElevatedButton(
-                    height: 45.v,
-                    text: "Go to home page".tr,
-                    margin: EdgeInsets.only(left: 2.h),
-                    onPressed: () async {
-                      Get.toNamed(AppRoutes.mainPageScreen);
-                    }),
               ],
             ),
     );
@@ -91,43 +214,5 @@ class LoginScreen extends GetWidget<LoginController> {
           Align(alignment: Alignment.bottomCenter, child: Padding(padding: EdgeInsets.only(bottom: 14.v), child: SizedBox(width: 330.h, child: Divider(color: appTheme.gray900.withOpacity(0.3))))),
           _buildOr()
         ]));
-  }
-
-  /// Section Widget
-  Widget _buildLoginWithFacebook() {
-    return CustomElevatedButton(
-        text: "msg_login_with_facebook".tr,
-        margin: EdgeInsets.only(left: 2.h),
-        leftIcon: Container(margin: EdgeInsets.only(right: 12.h), child: CustomImageView(imagePath: ImageConstant.imgIcon, height: 14.adaptSize, width: 14.adaptSize)),
-        buttonStyle: CustomButtonStyles.outlinePrimaryTL51,
-        buttonTextStyle: CustomTextStyles.labelLargeInterBluegray700,
-        onPressed: () {});
-  }
-
-  /// Section Widget
-  Widget _buildLoginWithTwitter() {
-    return CustomElevatedButton(
-        text: "msg_login_with_twitter".tr,
-        margin: EdgeInsets.only(left: 2.h),
-        leftIcon: Container(margin: EdgeInsets.only(right: 9.h), child: CustomImageView(imagePath: ImageConstant.imgIconOnsecondarycontainer, height: 14.adaptSize, width: 14.adaptSize)),
-        buttonStyle: CustomButtonStyles.outlinePrimaryTL51,
-        buttonTextStyle: CustomTextStyles.labelLargeInterBluegray700);
-  }
-
-  /// Section Widget
-  Widget _buildLoginWithInstagram() {
-    return CustomElevatedButton(
-        text: "msg_login_with_instagram".tr,
-        margin: EdgeInsets.only(left: 2.h),
-        leftIcon: Container(margin: EdgeInsets.only(right: 12.h), child: CustomImageView(imagePath: ImageConstant.imgIconOnsecondarycontainer14x14, height: 14.adaptSize, width: 14.adaptSize)),
-        buttonStyle: CustomButtonStyles.outlinePrimaryTL51,
-        buttonTextStyle: CustomTextStyles.labelLargeInterBluegray700);
-  }
-
-  /// Navigates to the taskSwipeContainerScreen when the action is triggered.
-  onTapContinueWithGmail() {
-    Get.toNamed(
-      AppRoutes.mainPageScreen,
-    );
   }
 }

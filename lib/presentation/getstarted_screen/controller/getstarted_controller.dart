@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:secure_notes/core/app_export.dart';
 import 'package:secure_notes/presentation/getstarted_screen/models/getstarted_model.dart';
 
@@ -7,4 +8,6 @@ import 'package:secure_notes/presentation/getstarted_screen/models/getstarted_mo
 /// current getstartedModelObj
 class GetstartedController extends GetxController {
   Rx<GetstartedModel> getstartedModelObj = GetstartedModel().obs;
+
+  final storage = GetStorage();
 }

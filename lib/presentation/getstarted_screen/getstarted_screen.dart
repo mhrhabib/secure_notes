@@ -72,7 +72,11 @@ class GetstartedScreen extends GetWidget<GetstartedController> {
                   text: "lbl_get_started".tr,
                   buttonStyle: CustomButtonStyles.outlinePrimary,
                   onPressed: () {
-                    Get.toNamed(AppRoutes.loginScreen);
+                    if (controller.storage.read("token") != null) {
+                      Get.toNamed(AppRoutes.mainPageScreen);
+                    } else {
+                      Get.toNamed(AppRoutes.loginScreen);
+                    }
                   },
                 ),
                 SizedBox(height: 5.v),

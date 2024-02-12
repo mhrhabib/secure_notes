@@ -1,77 +1,73 @@
 // To parse this JSON data, do
 //
-//     final loginModel = loginModelFromJson(jsonString);
+//     final signUpModel = signUpModelFromJson(jsonString);
 
 import 'dart:convert';
 
-LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+SignUpModel signUpModelFromJson(String str) => SignUpModel.fromJson(json.decode(str));
 
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+String signUpModelToJson(SignUpModel data) => json.encode(data.toJson());
 
-class LoginModel {
+class SignUpModel {
   bool? status;
   String? message;
   User? user;
-  String? token;
+  String? accessToken;
 
-  LoginModel({
+  SignUpModel({
     this.status,
     this.message,
     this.user,
-    this.token,
+    this.accessToken,
   });
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+  factory SignUpModel.fromJson(Map<String, dynamic> json) => SignUpModel(
         status: json["status"],
         message: json["message"],
         user: User.fromJson(json["user"]),
-        token: json["token"],
+        accessToken: json["accessToken"],
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
         "user": user!.toJson(),
-        "token": token,
+        "accessToken": accessToken,
       };
 }
 
 class User {
-  int? id;
-  int? roleId;
   String? name;
   String? email;
-  dynamic emailVerifiedAt;
-  DateTime? createdAt;
+  int? roleId;
   DateTime? updatedAt;
+  DateTime? createdAt;
+  int? id;
 
   User({
-    this.id,
-    this.roleId,
     this.name,
     this.email,
-    this.emailVerifiedAt,
-    this.createdAt,
+    this.roleId,
     this.updatedAt,
+    this.createdAt,
+    this.id,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        roleId: json["role_id"],
         name: json["name"],
         email: json["email"],
-        emailVerifiedAt: json["email_verified_at"],
-        createdAt: DateTime.parse(json["created_at"]),
+        roleId: json["role_id"],
         updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: DateTime.parse(json["created_at"]),
+        id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "role_id": roleId,
         "name": name,
         "email": email,
-        "email_verified_at": emailVerifiedAt,
-        "created_at": createdAt!.toIso8601String(),
+        "role_id": roleId,
         "updated_at": updatedAt!.toIso8601String(),
+        "created_at": createdAt!.toIso8601String(),
+        "id": id,
       };
 }

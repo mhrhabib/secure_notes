@@ -1,4 +1,4 @@
-import '../controller/main_page_controller.dart';
+import '../controller/todo_controller.dart';
 import 'package:get/get.dart';
 
 /// A binding class for the MainPageScreen.
@@ -8,6 +8,6 @@ import 'package:get/get.dart';
 class MainPageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => MainPageController());
+    Get.lazyPut(() => TodoController());
   }
 }
