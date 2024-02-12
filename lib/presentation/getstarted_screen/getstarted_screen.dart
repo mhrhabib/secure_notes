@@ -71,6 +71,9 @@ class GetstartedScreen extends GetWidget<GetstartedController> {
                   width: 114.h,
                   text: "lbl_get_started".tr,
                   buttonStyle: CustomButtonStyles.outlinePrimary,
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.loginScreen);
+                  },
                 ),
                 SizedBox(height: 5.v),
               ],
@@ -92,40 +95,6 @@ class GetstartedScreen extends GetWidget<GetstartedController> {
             imagePath: ImageConstant.imgLeftSide,
             height: 14.v,
             width: 40.h,
-          ),
-          Spacer(
-            flex: 68,
-          ),
-          Text(
-            "lbl_9_41_am".tr,
-            style: theme.textTheme.labelLarge,
-          ),
-          Spacer(
-            flex: 31,
-          ),
-          CustomImageView(
-            imagePath: ImageConstant.imgClock,
-            height: 14.adaptSize,
-            width: 14.adaptSize,
-          ),
-          CustomImageView(
-            imagePath: ImageConstant.imgBluetooth,
-            height: 14.adaptSize,
-            width: 14.adaptSize,
-            margin: EdgeInsets.only(left: 1.h),
-          ),
-          Text(
-            "lbl_100".tr,
-            style: theme.textTheme.bodySmall,
-          ),
-          CustomImageView(
-            imagePath: ImageConstant.imgTelevision,
-            height: 11.v,
-            width: 26.h,
-            margin: EdgeInsets.only(
-              left: 3.h,
-              top: 2.v,
-            ),
           ),
         ],
       ),

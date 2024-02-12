@@ -6,18 +6,16 @@ class ImageConstant {
   static String imgAlarm = '$imagePath/img_alarm.svg';
 
   // getstarted images
-  static String imgToDoListPana = '$imagePath/img_to_do_list_pana.svg';
+  static String imgToDoListPana = '$imagePath/To do list-pana.png';
 
   // login images
   static String imgArrowDown = '$imagePath/img_arrow_down.svg';
 
   static String imgIcon = '$imagePath/img_icon.svg';
 
-  static String imgIconOnsecondarycontainer =
-      '$imagePath/img_icon_onsecondarycontainer.svg';
+  static String imgIconOnsecondarycontainer = '$imagePath/img_icon_onsecondarycontainer.svg';
 
-  static String imgIconOnsecondarycontainer14x14 =
-      '$imagePath/img_icon_onsecondarycontainer_14x14.svg';
+  static String imgIconOnsecondarycontainer14x14 = '$imagePath/img_icon_onsecondarycontainer_14x14.svg';
 
   // Common images
   static String imgLeftSide = '$imagePath/img_left_side.svg';
@@ -30,8 +28,7 @@ class ImageConstant {
 
   static String imgIconBlueGray900 = '$imagePath/img_icon_blue_gray_900.svg';
 
-  static String imgArrowDownIndigo50 =
-      '$imagePath/img_arrow_down_indigo_50.svg';
+  static String imgArrowDownIndigo50 = '$imagePath/img_arrow_down_indigo_50.svg';
 
   static String imgNavMenu = '$imagePath/img_nav_menu.svg';
 

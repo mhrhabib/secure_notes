@@ -9,41 +9,70 @@ class LoginScreen extends GetWidget<LoginController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            backgroundColor: appTheme.cyan50,
-            body: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.only(left: 14.h, top: 97.v, right: 14.h),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Padding(
-                      padding: EdgeInsets.only(left: 2.h),
-                      child: Row(children: [
-                        CustomImageView(imagePath: ImageConstant.imgArrowDown, height: 24.adaptSize, width: 24.adaptSize, margin: EdgeInsets.only(bottom: 3.v)),
-                        Padding(padding: EdgeInsets.only(left: 110.h), child: Text("lbl_login".tr, style: CustomTextStyles.titleLargePrimary))
-                      ])),
-                  SizedBox(height: 58.v),
-                  _buildContinueWithGmail(),
-                  SizedBox(height: 43.v),
-                  _buildFrameNine(),
-                  SizedBox(height: 44.v),
-                  _buildLoginWithFacebook(),
-                  SizedBox(height: 12.v),
-                  _buildLoginWithTwitter(),
-                  SizedBox(height: 12.v),
-                  _buildLoginWithInstagram(),
-                  SizedBox(height: 5.v)
-                ]))));
+      child: Scaffold(
+        backgroundColor: appTheme.cyan50,
+        body: Container(
+          width: double.maxFinite,
+          padding: EdgeInsets.only(left: 14.h, top: 97.v, right: 14.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 2.h),
+                child: Row(
+                  children: [
+                    CustomImageView(imagePath: ImageConstant.imgArrowDown, height: 24.adaptSize, width: 24.adaptSize, margin: EdgeInsets.only(bottom: 3.v)),
+                    Padding(padding: EdgeInsets.only(left: 110.h), child: Text("lbl_login".tr, style: CustomTextStyles.titleLargePrimary))
+                  ],
+                ),
+              ),
+              SizedBox(height: 58.v),
+              _buildContinueWithGmail(),
+              SizedBox(height: 43.v),
+              _buildFrameNine(),
+              SizedBox(height: 44.v),
+              _buildLoginWithFacebook(),
+              SizedBox(height: 12.v),
+              _buildLoginWithTwitter(),
+              SizedBox(height: 12.v),
+              _buildLoginWithInstagram(),
+              SizedBox(height: 5.v)
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   /// Section Widget
   Widget _buildContinueWithGmail() {
-    return CustomElevatedButton(
-        height: 45.v,
-        text: "msg_continue_with_g_mail".tr,
-        margin: EdgeInsets.only(left: 2.h),
-        onPressed: () {
-          onTapContinueWithGmail();
-        });
+    return Obx(
+      () => controller.user.value == null
+          ? CustomElevatedButton(
+              height: 45.v,
+              text: "msg_continue_with_g_mail".tr,
+              margin: EdgeInsets.only(left: 2.h),
+              onPressed: () async {
+                await controller.signInWithGoogle();
+              })
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Welcome, ${controller.user.value!.displayName}',
+                  style: TextStyle(fontSize: 18.fSize),
+                ),
+                SizedBox(height: 12.h),
+                CustomElevatedButton(
+                    height: 45.v,
+                    text: "Go to home page".tr,
+                    margin: EdgeInsets.only(left: 2.h),
+                    onPressed: () async {
+                      Get.toNamed(AppRoutes.mainPageScreen);
+                    }),
+              ],
+            ),
+    );
   }
 
   /// Section Widget
@@ -98,7 +127,7 @@ class LoginScreen extends GetWidget<LoginController> {
   /// Navigates to the taskSwipeContainerScreen when the action is triggered.
   onTapContinueWithGmail() {
     Get.toNamed(
-      AppRoutes.taskSwipeContainerScreen,
+      AppRoutes.mainPageScreen,
     );
   }
 }

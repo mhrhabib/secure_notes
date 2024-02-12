@@ -6,14 +6,6 @@ import 'package:secure_notes/presentation/login_screen/login_screen.dart';
 import 'package:secure_notes/presentation/login_screen/binding/login_binding.dart';
 import 'package:secure_notes/presentation/main_page_screen/main_page_screen.dart';
 import 'package:secure_notes/presentation/main_page_screen/binding/main_page_binding.dart';
-import 'package:secure_notes/presentation/task_swipe_container_screen/task_swipe_container_screen.dart';
-import 'package:secure_notes/presentation/task_swipe_container_screen/binding/task_swipe_container_binding.dart';
-import 'package:secure_notes/presentation/add_todo_screen/add_todo_screen.dart';
-import 'package:secure_notes/presentation/add_todo_screen/binding/add_todo_binding.dart';
-import 'package:secure_notes/presentation/edit_todo_screen/edit_todo_screen.dart';
-import 'package:secure_notes/presentation/edit_todo_screen/binding/edit_todo_binding.dart';
-import 'package:secure_notes/presentation/app_navigation_screen/app_navigation_screen.dart';
-import 'package:secure_notes/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -64,34 +56,6 @@ class AppRoutes {
       page: () => MainPageScreen(),
       bindings: [
         MainPageBinding(),
-      ],
-    ),
-    GetPage(
-      name: taskSwipeContainerScreen,
-      page: () => TaskSwipeContainerScreen(),
-      bindings: [
-        TaskSwipeContainerBinding(),
-      ],
-    ),
-    GetPage(
-      name: addTodoScreen,
-      page: () => AddTodoScreen(),
-      bindings: [
-        AddTodoBinding(),
-      ],
-    ),
-    GetPage(
-      name: editTodoScreen,
-      page: () => EditTodoScreen(),
-      bindings: [
-        EditTodoBinding(),
-      ],
-    ),
-    GetPage(
-      name: appNavigationScreen,
-      page: () => AppNavigationScreen(),
-      bindings: [
-        AppNavigationBinding(),
       ],
     ),
     GetPage(

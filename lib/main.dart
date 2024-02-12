@@ -1,11 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:secure_notes/firebase_options.dart';
 
 import 'core/app_export.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((value) {
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
         translations: AppLocalization(),
         locale: Get.deviceLocale, //for setting localization strings
         fallbackLocale: Locale('en', 'US'),
-        title: 'druto_s_application3',
+        title: 'secure-notes',
         initialBinding: InitialBindings(),
         initialRoute: AppRoutes.initialRoute,
         getPages: AppRoutes.pages,
