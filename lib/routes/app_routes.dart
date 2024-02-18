@@ -1,10 +1,10 @@
-import 'package:secure_notes/presentation/login_screen/signup_screen.dart';
+import 'package:secure_notes/presentation/auth/signup_screen.dart';
 import 'package:secure_notes/presentation/splash_screen/splash_screen.dart';
 import 'package:secure_notes/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:secure_notes/presentation/getstarted_screen/getstarted_screen.dart';
 import 'package:secure_notes/presentation/getstarted_screen/binding/getstarted_binding.dart';
-import 'package:secure_notes/presentation/login_screen/login_screen.dart';
-import 'package:secure_notes/presentation/login_screen/binding/login_binding.dart';
+import 'package:secure_notes/presentation/auth/login_screen.dart';
+import 'package:secure_notes/presentation/auth/binding/login_binding.dart';
 import 'package:secure_notes/presentation/main_page_screen/main_page_screen.dart';
 import 'package:secure_notes/presentation/main_page_screen/binding/main_page_binding.dart';
 import 'package:get/get.dart';

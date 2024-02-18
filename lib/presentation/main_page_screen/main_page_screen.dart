@@ -1,5 +1,7 @@
+import 'package:secure_notes/presentation/auth/repo/log_out_repo.dart';
 import 'package:secure_notes/presentation/main_page_screen/widgets/todo_dialog_widget.dart';
 import 'package:secure_notes/widgets/laoder.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'widgets/add_todo.dart';
 import 'controller/todo_controller.dart';
@@ -44,29 +46,43 @@ class MainPageScreen extends GetWidget<TodoController> {
   Widget _buildFrame() {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 137.h,
+        horizontal: 12.h,
         vertical: 15.v,
       ),
+      margin: EdgeInsets.only(left: 8, right: 8),
       decoration: AppDecoration.outlinePrimary.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder5,
       ),
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: "lbl_task".tr,
-              style: theme.textTheme.titleLarge,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "lbl_task".tr,
+                  style: theme.textTheme.titleLarge,
+                ),
+                TextSpan(
+                  text: "",
+                ),
+                TextSpan(
+                  text: "lbl_list".tr,
+                  style: theme.textTheme.titleLarge,
+                ),
+              ],
             ),
-            TextSpan(
-              text: "",
-            ),
-            TextSpan(
-              text: "lbl_list".tr,
-              style: theme.textTheme.titleLarge,
-            ),
-          ],
-        ),
-        textAlign: TextAlign.left,
+            textAlign: TextAlign.left,
+          ),
+          IconButton(
+              onPressed: () async {
+                await LogOutRepo.logOut();
+              },
+              icon: Icon(
+                Icons.logout_rounded,
+                color: Colors.white,
+              ))
+        ],
       ),
     );
   }
@@ -99,7 +115,50 @@ class MainPageScreen extends GetWidget<TodoController> {
   Widget _buildTheList() {
     return Obx(
       () => controller.isLoading.value
-          ? Loader()
+          ? Shimmer.fromColors(
+              child: ListView.builder(
+                itemCount: 12,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      child: Text(
+                        "${index + 1}",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    title: Container(
+                      height: 12,
+                      width: 280,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                      ),
+                      child: Text(
+                        "",
+                        style: theme.textTheme.titleLarge!.copyWith(color: Colors.black),
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
+                    subtitle: Container(
+                      height: 12,
+                      width: 280,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                      ),
+                      child: Text(
+                        '',
+                        style: theme.textTheme.titleMedium!.copyWith(color: Colors.black),
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
+                    trailing: IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_outlined)),
+                  );
+                },
+              ),
+              baseColor: Colors.grey,
+              highlightColor: Colors.white,
+            )
           : controller.todoList.isEmpty
               ? Center(
                   child: Text("Empty"),

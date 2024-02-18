@@ -65,7 +65,7 @@ class LoginScreen extends GetWidget<LoginController> {
                           ),
                           filled: true,
                           fillColor: Colors.grey.shade100,
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                           //contentPadding: EdgeInsets.only(left: 8)
                         ),
                         validator: (value) {
@@ -104,7 +104,7 @@ class LoginScreen extends GetWidget<LoginController> {
                             ),
                             filled: true,
                             fillColor: Colors.grey.shade100,
-                            border: const OutlineInputBorder(),
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                             //contentPadding: EdgeInsets.only(left: 8)
                           ),
                           validator: (value) {
