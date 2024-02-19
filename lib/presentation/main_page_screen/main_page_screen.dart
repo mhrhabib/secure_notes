@@ -1,8 +1,6 @@
 import 'package:secure_notes/presentation/auth/repo/log_out_repo.dart';
 import 'package:secure_notes/presentation/main_page_screen/widgets/todo_dialog_widget.dart';
-import 'package:secure_notes/widgets/laoder.dart';
 import 'package:shimmer/shimmer.dart';
-
 import 'widgets/add_todo.dart';
 import 'controller/todo_controller.dart';
 import 'package:secure_notes/core/app_export.dart';

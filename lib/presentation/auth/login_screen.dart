@@ -42,6 +42,22 @@ class LoginScreen extends GetWidget<LoginController> {
                   ),
                 ),
                 SizedBox(height: 12.v),
+                Obx(
+                  () => controller.user.value != null ? Text('sign out from Firebase with gmail') : SizedBox.shrink(),
+                ),
+                Obx(
+                  () => controller.user.value != null
+                      ? CircleAvatar(
+                          child: IconButton(
+                              onPressed: () async {
+                                await controller.signOut();
+                              },
+                              icon: Icon(
+                                Icons.logout_rounded,
+                                color: Colors.white,
+                              )))
+                      : SizedBox.shrink(),
+                ),
                 Form(
                   key: formKey,
                   child: Column(
